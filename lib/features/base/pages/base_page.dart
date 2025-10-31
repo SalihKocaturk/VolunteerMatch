@@ -19,7 +19,7 @@ class BasePage extends ConsumerWidget {
       HomePage(),
       FypPage(),
       Center(child: Text('Mesajlar Sayfası')),
-      Center(child: Text('Profil Sayfası')),
+      ProfilePage(),
     ];
 
     return Scaffold(
@@ -32,3 +32,4 @@ class BasePage extends ConsumerWidget {
     );
   }
 }
+
