@@ -1,81 +1,176 @@
 import 'package:flutter/material.dart';
-import 'package:prologue/core/constants/app_colors.dart';
+import 'package:prologue/core/widgets/app_logo.dart';
+import 'package:prologue/features/home/widgets/user_ranking_card.dart';
 
-import '../widgets/home_action_card.dart';
+import '../../../core/constants/app_colors.dart';
+import '../../fyp/models/activity.dart';
+import '../widgets/recommended_events_section.dart';
+import '../widgets/user_level_section.dart';
+import '../widgets/your_shifts_section.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
-  static const String route = '/home';
+  static const route = '/home';
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  final int _currentIndex = 0;
+  static const TextStyle _titleLg = TextStyle(
+    color: AppColors.text,
+    fontWeight: FontWeight.w800,
+    fontSize: 20,
+  );
 
   @override
   Widget build(BuildContext context) {
+    final activities = [
+      Activity(
+        id: '1',
+        title: 'Charity Shop Rota',
+        description: 'Helping at the elderly care center for donations.',
+        location: 'Elderly Care, İstanbul',
+        imageUrl:
+            'https://upload.wikimedia.org/wikipedia/commons/3/3d/Charity_shop.jpg',
+        date: DateTime(2025, 11, 17),
+        points: 60,
+      ),
+      Activity(
+        id: '2',
+        title: 'Befriending',
+        description: 'Visiting seniors and having a friendly talk.',
+        location: 'Bakırköy / İstanbul',
+        imageUrl:
+            'https://upload.wikimedia.org/wikipedia/commons/1/1e/Old_people_visiting.jpg',
+        date: DateTime(2025, 11, 18),
+        points: 50,
+      ),
+    ];
+
+    final recommended = [
+      Activity(
+        id: '3',
+        title: 'Fidan Dikim Günü',
+        description: 'Katıl ve doğaya katkı sağla!',
+        location: 'Polonezköy / İstanbul',
+        imageUrl: 'https://picsum.photos/seed/tree/600/400',
+        date: DateTime(2025, 12, 1),
+        points: 80,
+      ),
+      Activity(
+        id: '4',
+        title: 'Sokak Hayvanları için Mama Dağıtımı',
+        description: 'Sevimli dostlarımızı besleme etkinliği.',
+        location: 'Beşiktaş / İstanbul',
+        imageUrl:
+            'https://www.hataygazetesi.com/userdata/urunResimleri/dortyolda-mama-dagitimi-yapildi.jpg',
+        date: DateTime(2025, 11, 15),
+        points: 100,
+      ),
+    ];
+
     return Scaffold(
       backgroundColor: AppColors.beige,
+
       appBar: AppBar(
-        backgroundColor: AppColors.green,
+        automaticallyImplyLeading: false,
         elevation: 0,
+        backgroundColor: Colors.transparent,
+        foregroundColor: Colors.black87,
         centerTitle: true,
-        title: const Text(
-          'volmatch',
-          style: TextStyle(color: Colors.white, fontSize: 28),
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 60, 16, 0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Text('Welcome, Salih!', style: TextStyle(fontSize: 44)),
-            const SizedBox(height: 16),
-            SizedBox(
-              height: 140,
-              width: double.infinity,
-              child: HomeActionCard(
-                title: 'Discover\nVolunteering',
-                imageAsset: 'assets/illustrations/man_thinkin.png',
-                backgroundColor: const Color(0xFFBFE5FF),
-                isLeft: true,
-                onTap: () {},
-              ),
+        title: Row(
+          children: const [
+            AppLogo(),
+            SizedBox(width: 10),
+            Text(
+              'Gönüllü Uygulaması',
+              style: TextStyle(fontWeight: FontWeight.w800),
+              overflow: TextOverflow.ellipsis,
             ),
-            const SizedBox(height: 16),
-            Row(
+          ],
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.notifications_none_rounded),
+          ),
+          IconButton(onPressed: () {}, icon: const Icon(Icons.settings)),
+        ],
+      ),
+
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(
-                  child: SizedBox(
-                    height: 120,
-                    child: HomeActionCard(
-                      title: 'Volunteer\nPortal',
-                      imageAsset: 'assets/illustrations/man_computer.png',
-                      backgroundColor: const Color(0xFFFFD2D8),
-                      isLeft: false,
-                      onTap: () {},
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                      child: const Text('Sıralama', style: _titleLg),
                     ),
-                  ),
+                    TextButton(
+                      onPressed: () {},
+                      child: const Text(
+                        'Tümü',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: SizedBox(
-                    height: 120,
-                    child: HomeActionCard(
-                      title: 'Make an\nEvent',
-                      imageAsset: 'assets/illustrations/woman_action.png',
-                      backgroundColor: const Color(0xFFF6E3FF),
-                      isLeft: false,
-                      onTap: () {},
+                UserRankingCard(
+                  username: 'Salih Kocatürk',
+                  rank: 4,
+                  points: 1340,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                      child: const Text('Shiftlerim', style: _titleLg),
                     ),
-                  ),
+                    TextButton(
+                      onPressed: () {},
+                      child: const Text(
+                        'Tümü',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ],
+                ),
+                YourShiftsSection(activities: activities, onRefresh: () {}),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                      child: const Text('Seviyem', style: _titleLg),
+                    ),
+                    TextButton(
+                      onPressed: () {},
+                      child: const Text(
+                        'Daha Fazla',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                UserLevelSection(),
+                SizedBox(height: 16),
+
+                RecommendedEventsSection(
+                  recommended: recommended,
+                  onRefresh: () {},
                 ),
               ],
             ),
-          ],
+          ),
         ),
       ),
     );

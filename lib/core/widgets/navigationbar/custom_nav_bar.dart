@@ -14,7 +14,7 @@ class CustomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      backgroundColor: AppColors.green,
+      backgroundColor: AppColors.seed,
       selectedItemColor: Colors.white,
       unselectedItemColor: Colors.white70,
       type: BottomNavigationBarType.fixed,
@@ -30,8 +30,8 @@ class CustomNavBar extends StatelessWidget {
           label: 'Keşfet',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.chat_bubble_outline_rounded),
-          label: 'Mesaj',
+          icon: Icon(Icons.local_activity_sharp),
+          label: 'Etkinlikler',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.person_outline_rounded),

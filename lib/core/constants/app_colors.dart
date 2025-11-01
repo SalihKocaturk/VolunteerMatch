@@ -11,5 +11,7 @@ class AppColors {
   static const Color white = Colors.white;
   static const Color blue = Color(0xff65BDE2);
   static const Color green = Color(0xff8ED166);
+  static const Color pink = Color(0xffF5B2B2);
+  static const Color red = Color(0xFFDE350B);
   static get primary => null;
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prologue/core/constants/app_colors.dart';
 
+import '../models/user_level.dart';
 import '../widgets/edit_profile_button.dart';
 import '../widgets/form_field_readonly.dart';
 import '../widgets/profile_header_compact.dart';
@@ -8,7 +9,6 @@ import '../widgets/recent_activities_section.dart.dart';
 import '../widgets/section_card.dart';
 import '../widgets/social_links_row.dart';
 import 'edit_profile_page.dart';
-import '../models/user_level.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});

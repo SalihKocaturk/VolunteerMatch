@@ -1,137 +1,185 @@
 import 'package:flutter/material.dart';
-import 'package:prologue/core/widgets/app_logo.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/constants/app_colors.dart';
-import '../../../data/demo_data.dart';
-import '../models/achivement.dart';
-import '../widgets/achivement_section.dart';
-import '../widgets/organizations_strip.dart';
-import '../widgets/upcoming_events_carousel.dart';
+import '../../event/enums/activity_filter_type.dart';
+import '../models/fyp_announcement.dart';
+import '../models/fyp_award.dart';
+import '../models/fyp_contribution.dart';
+import '../provider/activity_filter_provider.dart';
+import '../widgets/fyp_announcment_card.dart';
+import '../widgets/fyp_award_card.dart';
+import '../widgets/fyp_birthday_card.dart';
+import '../widgets/fyp_contribition_card.dart';
+import '../widgets/fyp_filter_bar.dart';
 
-class FypPage extends StatefulWidget {
+class FypPage extends ConsumerWidget {
   const FypPage({super.key});
-  static const route = '/home';
 
   @override
-  State<FypPage> createState() => _FypPageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedFilters = ref.watch(activityFilterProvider);
 
-class _FypPageState extends State<FypPage> {
-  static const TextStyle _titleLg = TextStyle(
-    color: AppColors.text,
-    fontWeight: FontWeight.w800,
-    fontSize: 22,
-  );
-
-  @override
-  Widget build(BuildContext context) {
-    int currentIndex = 1;
-    return Scaffold(
-      backgroundColor: AppColors.beige,
-
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        foregroundColor: Colors.black87,
-        centerTitle: true,
-        title: Row(
-          children: const [
-            AppLogo(),
-            SizedBox(width: 10),
-            Text(
-              'Gönüllü Uygulaması',
-              style: TextStyle(fontWeight: FontWeight.w800),
-              overflow: TextOverflow.ellipsis,
-            ),
-          ],
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.notifications_none_rounded),
-          ),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.settings)),
-        ],
+    // --- Örnek veri setleri ---
+    final announcements = [
+      FypAnnouncement(
+        title: 'Yeni Etkinlik Serisi Başlıyor!',
+        content:
+            'Kasım ayı boyunca çevre farkındalığı temalı etkinlikler düzenleniyor.',
+        date: '1 Kasım 2025',
+        imageUrl: 'https://picsum.photos/seed/event/600/300',
       ),
+      FypAnnouncement(
+        title: 'Bağış Kampanyası Tamamlandı!',
+        content:
+            'Toplam 540 bağış toplandı, teşekkürler gönüllüler! Yeni kampanyalar yakında.',
+        date: '29 Ekim 2025',
+        imageUrl: 'https://picsum.photos/seed/donation/600/300',
+      ),
+    ];
 
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    final awards = [
+      FypAward(
+        title: 'Haftanın Gönüllüsü',
+        username: 'Salih Kocatürk',
+        points: 1340,
+        imageUrl:
+            'https://cdn.pixabay.com/photo/2021/02/20/10/28/avatar-6030731_960_720.png',
+        description: 'Bu hafta en çok gönüllü katkısı yapan kullanıcı!',
+      ),
+      FypAward(
+        title: 'Ayın Yardımseveri',
+        username: 'Elif Yılmaz',
+        points: 980,
+        imageUrl:
+            'https://cdn.pixabay.com/photo/2020/07/01/12/58/avatar-5364673_960_720.png',
+        description: 'Kasım ayında 3 etkinlik organize etti.',
+      ),
+    ];
+
+    final contributions = [
+      FypContribution(
+        category: 'Sokak Hayvanları',
+        count: 42,
+        iconUrl: 'https://cdn-icons-png.flaticon.com/512/616/616408.png',
+        description: 'Bu ay 42 gönüllü hayvan dostlarımız için katkı sağladı.',
+      ),
+      FypContribution(
+        category: 'Ağaç Dikimi',
+        count: 58,
+        iconUrl: 'https://cdn-icons-png.flaticon.com/512/427/427735.png',
+        description: '58 yeni fidan doğayla buluştu!',
+      ),
+    ];
+
+    final showAll = selectedFilters.contains(ActivityFilterType.all);
+
+    // 🔖 Bölüm başlığı stili
+    const sectionTitleStyle = TextStyle(
+      fontSize: 20,
+      fontWeight: FontWeight.w800,
+      color: AppColors.text,
+    );
+
+    Widget buildSection(String title, List<Widget> children) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                      child: const Text(
-                        'Yaklaşan Etkinlikler',
-                        style: _titleLg,
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      child: const Text(
-                        'Tümü',
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  ],
-                ),
-                UpcomingEvents(events: demoEvents),
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                      child: const Text('Başarıların', style: _titleLg),
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      child: const Text(
-                        'Daha Fazla',
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                AchievementsSection(
-                  achievements: const [
-                    Achievement(
-                      icon: Icons.workspace_premium_rounded,
-                      title: 'Leader',
-                    ),
-                    Achievement(
-                      icon: Icons.volunteer_activism_rounded,
-                      title: 'Helper',
-                    ),
-                    Achievement(
-                      icon: Icons.handshake_rounded,
-                      title: 'Partner',
-                    ),
-                    Achievement(icon: Icons.star_rounded, title: 'Achiever'),
-                  ],
-                ),
-
-                const SizedBox(height: 24),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                Text(title, style: sectionTitleStyle),
+                TextButton(
+                  onPressed: () {},
                   child: const Text(
-                    'En Çok Desteklenen Kurumlar',
-                    style: _titleLg,
+                    'Tümü',
+                    style: TextStyle(color: Colors.black87),
                   ),
                 ),
-                const SizedBox(height: 8),
-                OrganizationsStrip(orgs: demoOrgs),
               ],
             ),
           ),
+          const SizedBox(height: 8),
+          ...children,
+          const SizedBox(height: 18),
+        ],
+      );
+    }
+
+    // 🔧 Seçili filtrelere göre dinamik içerik oluştur
+    final widgets = <Widget>[];
+
+    if (showAll || selectedFilters.contains(ActivityFilterType.announcements)) {
+      widgets.add(
+        buildSection(
+          'Duyurular',
+          announcements
+              .map((a) => FypAnnouncementCard(announcement: a))
+              .toList(),
         ),
+      );
+    }
+
+    if (showAll || selectedFilters.contains(ActivityFilterType.requests)) {
+      widgets.add(
+        buildSection(
+          'Ödüller',
+          awards.map((a) => FypAwardCard(award: a)).toList(),
+        ),
+      );
+    }
+
+    if (showAll || selectedFilters.contains(ActivityFilterType.events)) {
+      widgets.add(
+        buildSection(
+          'Katkılarımız',
+          contributions
+              .map((c) => FypContributionCard(contribution: c))
+              .toList(),
+        ),
+      );
+    }
+
+    if (showAll || selectedFilters.contains(ActivityFilterType.unread)) {
+      widgets.add(
+        buildSection('Doğum Günleri', const [
+          FypBirthdayCard(),
+          FypBirthdayCard(),
+        ]),
+      );
+    }
+
+    return Scaffold(
+      backgroundColor: AppColors.beige,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        centerTitle: true,
+        title: const Text(
+          'Keşfet',
+          style: TextStyle(
+            color: AppColors.text,
+            fontWeight: FontWeight.bold,
+            fontSize: 22,
+          ),
+        ),
+      ),
+      body: Column(
+        children: [
+          const FypFilterBar(),
+          Expanded(
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              child: Column(children: widgets),
+            ),
+          ),
+        ],
       ),
     );
   }
