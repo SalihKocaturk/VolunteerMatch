@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prologue/core/widgets/custom_card.dart';
 
 import '../../../core/constants/app_colors.dart';
 import '../models/event.dart';
@@ -57,14 +58,14 @@ class EventCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final color = _importanceColor(event.importance);
 
-    return Card(
-      color: AppColors.white,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-        side: BorderSide(color: AppColors.forest.withOpacity(0.3), width: 0.8),
-      ),
-      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-      elevation: 0,
+    return CustomCard(
+      // color: AppColors.white,
+      // shape: RoundedRectangleBorder(
+      //   borderRadius: BorderRadius.circular(16),
+      //   side: BorderSide(color: AppColors.forest.withOpacity(0.3), width: 0.8),
+      // ),
+      // margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      // elevation: 0,
       child: Padding(
         padding: const EdgeInsets.all(14),
         child: Column(

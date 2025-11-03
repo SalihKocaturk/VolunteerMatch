@@ -16,22 +16,18 @@ class YourShiftsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 16, top: 12, bottom: 24, right: 8),
+      padding: const EdgeInsets.only(top: 12, bottom: 24),
       child: Column(
         children: [
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             physics: const BouncingScrollPhysics(),
             child: IntrinsicWidth(
-              // Row'a finite constraint verir
               child: Row(
-                mainAxisSize: MainAxisSize.min, // shrink-wrap davranışı
+                mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  for (final a in activities) ...[
-                    ShiftCard(activity: a),
-                    const SizedBox(width: 8),
-                  ],
+                  for (final a in activities) ...[ShiftCard(activity: a)],
                 ],
               ),
             ),

@@ -43,7 +43,7 @@ class FormFieldReadonly extends StatelessWidget {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
-          borderSide: BorderSide(color: AppColors.green, width: 1.6),
+          borderSide: BorderSide(color: AppColors.seed, width: 1.6),
         ),
       ),
     );

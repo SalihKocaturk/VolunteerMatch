@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prologue/core/constants/app_colors.dart';
+
 import '../widgets/section_card.dart';
 
 class ActivityItem {
@@ -46,7 +47,7 @@ class _ActivityTile extends StatelessWidget {
       contentPadding: EdgeInsets.zero,
       leading: CircleAvatar(
         radius: 22,
-        backgroundColor: AppColors.green,
+        backgroundColor: AppColors.seed,
         child: Text(
           item.xp.toString(),
           style: const TextStyle(

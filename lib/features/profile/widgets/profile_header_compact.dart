@@ -44,7 +44,7 @@ class ProfileHeaderCard extends StatelessWidget {
                 height: 84,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(color: AppColors.green, width: 3),
+                  border: Border.all(color: AppColors.seed, width: 3),
                 ),
                 child: ClipOval(
                   child: Image.network(avatarUrl, fit: BoxFit.cover),
@@ -81,12 +81,17 @@ class ProfileHeaderCard extends StatelessWidget {
           ),
           const SizedBox(height: 8),
 
-          // kalın progress bar (animasyonlu)
-          TweenAnimationBuilder<double>(
-            tween: Tween(begin: 0, end: progress),
-            duration: const Duration(milliseconds: 600),
-            curve: Curves.easeOutCubic,
-            builder: (context, value, _) => _ThickProgressBar(value: value),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: const LinearProgressIndicator(
+                minHeight: 16,
+                value: 0.8,
+                backgroundColor: Color.fromARGB(255, 235, 207, 207),
+                color: AppColors.pink,
+              ),
+            ),
           ),
         ],
       ),
@@ -139,7 +144,7 @@ class _ThickProgressBar extends StatelessWidget {
                   gradient: LinearGradient(
                     colors: [
                       AppColors.text.withOpacity(0.9),
-                      AppColors.forest.withOpacity(0.9),
+                      AppColors.seed.withOpacity(0.9),
                     ],
                   ),
                 ),

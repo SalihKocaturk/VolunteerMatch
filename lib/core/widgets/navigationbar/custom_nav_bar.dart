@@ -26,12 +26,17 @@ class CustomNavBar extends StatelessWidget {
           label: 'Ana Sayfa',
         ),
         BottomNavigationBarItem(
+          icon: Icon(Icons.local_activity_sharp),
+          label: 'Etkinlikler',
+        ),
+        BottomNavigationBarItem(
           icon: Icon(Icons.search_rounded),
           label: 'Keşfet',
         ),
+
         BottomNavigationBarItem(
-          icon: Icon(Icons.local_activity_sharp),
-          label: 'Etkinlikler',
+          icon: Icon(Icons.leaderboard),
+          label: 'Sıralama',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.person_outline_rounded),

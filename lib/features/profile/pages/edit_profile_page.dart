@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:prologue/core/constants/app_colors.dart';
 
+import '../../../core/widgets/appbar/custom_app_bar.dart';
+
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({super.key});
 
@@ -25,19 +27,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.beige,
-      appBar: AppBar(
-        backgroundColor: AppColors.green,
-        elevation: 0,
-        centerTitle: true,
-        title: const Text(
-          'Profili Düzenle',
-          style: TextStyle(color: Colors.white, fontSize: 22),
-        ),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded, color: Colors.white),
-          onPressed: () => Navigator.pop(context),
-        ),
-      ),
+      appBar: CustomAppBar(implyLeading: true, title: "Profili Düzenle"),
 
       body: Padding(
         padding: const EdgeInsets.fromLTRB(16, 24, 16, 16),
@@ -53,7 +43,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
             _buildTextField('Adres', addressController, maxLines: 2),
             const Spacer(),
 
-            // 🔸 Alt butonlar
             Row(
               children: [
                 Expanded(
@@ -61,7 +50,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     onPressed: () => Navigator.pop(context),
                     style: OutlinedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 14),
-                      side: BorderSide(color: AppColors.green, width: 1.6),
+                      side: BorderSide(color: AppColors.seed, width: 1.6),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -69,7 +58,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     child: Text(
                       'Vazgeç',
                       style: TextStyle(
-                        color: AppColors.green,
+                        color: AppColors.seed,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -88,7 +77,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       Navigator.pop(context);
                     },
                     style: FilledButton.styleFrom(
-                      backgroundColor: AppColors.green,
+                      backgroundColor: AppColors.seed,
                       padding: const EdgeInsets.symmetric(vertical: 14),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -135,7 +124,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           borderRadius: BorderRadius.circular(12),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.green, width: 1.6),
+          borderSide: BorderSide(color: AppColors.seed, width: 1.6),
           borderRadius: BorderRadius.circular(12),
         ),
       ),

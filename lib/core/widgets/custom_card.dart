@@ -4,7 +4,7 @@ class CustomCard extends StatelessWidget {
   const CustomCard({
     super.key,
     required this.child,
-    this.backgroundColor = Colors.white,
+    this.backgroundColor = const Color(0xFFFDF6EE),
     this.borderRadius = 16,
     this.onTap,
   });

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:prologue/core/widgets/appbar/custom_app_bar.dart';
 
 import '../../../core/constants/app_colors.dart';
 import '../../event/enums/activity_filter_type.dart';
@@ -13,14 +14,24 @@ import '../widgets/fyp_birthday_card.dart';
 import '../widgets/fyp_contribition_card.dart';
 import '../widgets/fyp_filter_bar.dart';
 
-class FypPage extends ConsumerWidget {
+class FypPage extends ConsumerStatefulWidget {
   const FypPage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<FypPage> createState() => _FypPageState();
+}
+
+class _FypPageState extends ConsumerState<FypPage> {
+  Future<void> _simulateRefresh() async {
+    // Görsel yenileme efekti (ileride gerçek API çağrısı gelebilir)
+    await Future.delayed(const Duration(milliseconds: 600));
+    setState(() {});
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final selectedFilters = ref.watch(activityFilterProvider);
 
-    // --- Örnek veri setleri ---
     final announcements = [
       FypAnnouncement(
         title: 'Yeni Etkinlik Serisi Başlıyor!',
@@ -74,7 +85,6 @@ class FypPage extends ConsumerWidget {
 
     final showAll = selectedFilters.contains(ActivityFilterType.all);
 
-    // 🔖 Bölüm başlığı stili
     const sectionTitleStyle = TextStyle(
       fontSize: 20,
       fontWeight: FontWeight.w800,
@@ -109,7 +119,6 @@ class FypPage extends ConsumerWidget {
       );
     }
 
-    // 🔧 Seçili filtrelere göre dinamik içerik oluştur
     final widgets = <Widget>[];
 
     if (showAll || selectedFilters.contains(ActivityFilterType.announcements)) {
@@ -154,29 +163,25 @@ class FypPage extends ConsumerWidget {
 
     return Scaffold(
       backgroundColor: AppColors.beige,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        centerTitle: true,
-        title: const Text(
-          'Keşfet',
-          style: TextStyle(
-            color: AppColors.text,
-            fontWeight: FontWeight.bold,
-            fontSize: 22,
-          ),
-        ),
-      ),
+      appBar: const CustomAppBar(title: "Keşfet"),
       body: Column(
         children: [
           const FypFilterBar(),
           Expanded(
-            child: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              child: Column(children: widgets),
+            child: RefreshIndicator(
+              color: AppColors.seed,
+              backgroundColor: AppColors.beige,
+              strokeWidth: 2.5,
+              displacement: 40,
+              onRefresh: _simulateRefresh,
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 12,
+                ),
+                child: Column(children: widgets),
+              ),
             ),
           ),
         ],

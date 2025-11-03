@@ -4,6 +4,7 @@ import 'package:prologue/core/constants/app_colors.dart';
 import 'package:prologue/features/event/pages/event_page.dart';
 import 'package:prologue/features/fyp/pages/fyp_page.dart';
 import 'package:prologue/features/home/pages/home_page.dart';
+import 'package:prologue/features/home/pages/ranking_page.dart';
 import 'package:prologue/features/profile/pages/profile_page.dart';
 
 import '../../../core/widgets/navigationbar/custom_nav_bar.dart';
@@ -17,7 +18,14 @@ class BasePage extends ConsumerWidget {
     final currentIndex = ref.watch(bottomNavProvider);
 
     // Her sekme için sayfalar
-    final pages = const [HomePage(), FypPage(), EventPage(), ProfilePage()];
+    final pages = const [
+      HomePage(),
+      EventPage(),
+
+      FypPage(),
+      RankingPage(),
+      ProfilePage(),
+    ];
 
     return Scaffold(
       backgroundColor: AppColors.beige,

@@ -2,16 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/constants/app_colors.dart';
+import '../../../core/widgets/appbar/custom_app_bar.dart';
 import '../models/event.dart';
 import '../providers/event_filter_provider.dart';
 import '../widgets/event_card.dart';
 import '../widgets/event_filter_bar.dart';
 
-class EventPage extends ConsumerWidget {
+class EventPage extends ConsumerStatefulWidget {
   const EventPage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<EventPage> createState() => _EventPageState();
+}
+
+class _EventPageState extends ConsumerState<EventPage> {
+  Future<void> _simulateRefresh() async {
+    // Görsel yenileme efekti
+    await Future.delayed(const Duration(milliseconds: 600));
+    setState(() {}); // gelecekte API çağrısı burada yapılabilir
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final selected = ref.watch(eventFilterProvider);
 
     final events = [
@@ -65,24 +77,37 @@ class EventPage extends ConsumerWidget {
 
     return Scaffold(
       backgroundColor: AppColors.beige,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        centerTitle: true,
-        title: const Text(
-          'Etkinlikler',
-          style: TextStyle(color: AppColors.text, fontWeight: FontWeight.bold),
-        ),
+      appBar: CustomAppBar(
+        title: "Etkinlikler",
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.notifications_none_rounded),
+          ),
+        ],
       ),
       body: Column(
         children: [
           const EventFilterBar(),
           Expanded(
-            child: ListView.builder(
-              itemCount: filtered.length,
-              itemBuilder: (context, i) =>
-                  EventCard(event: filtered[i], onJoin: () {}),
+            child: RefreshIndicator(
+              color: AppColors.seed,
+              backgroundColor: AppColors.beige,
+              strokeWidth: 2.5,
+              displacement: 40,
+              onRefresh: _simulateRefresh,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
+                ),
+                child: ListView.builder(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  itemCount: filtered.length,
+                  itemBuilder: (context, i) =>
+                      EventCard(event: filtered[i], onJoin: () {}),
+                ),
+              ),
             ),
           ),
         ],

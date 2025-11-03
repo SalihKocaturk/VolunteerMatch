@@ -16,11 +16,11 @@ class EditProfileButton extends StatelessWidget {
         style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
       ),
       style: FilledButton.styleFrom(
-        backgroundColor: AppColors.green,
+        backgroundColor: AppColors.seed,
         foregroundColor: Colors.white,
         padding: const EdgeInsets.symmetric(vertical: 16),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-        shadowColor: AppColors.green.withOpacity(.4),
+        shadowColor: AppColors.seed.withOpacity(.4),
         elevation: 4,
       ),
     );
