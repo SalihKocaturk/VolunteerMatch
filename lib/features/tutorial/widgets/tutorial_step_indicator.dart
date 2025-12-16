@@ -25,8 +25,8 @@ class TutorialStepIndicator extends StatelessWidget {
             ),
             decoration: BoxDecoration(
               color: active
-                  ? (AppColors.primary ?? cs.primary)
-                  : cs.surfaceVariant.withAlpha(4),
+                  ? (AppColors.green ?? cs.primary)
+                  : cs.surfaceContainerHighest.withAlpha(4),
               borderRadius: BorderRadius.circular(999),
             ),
           ),
