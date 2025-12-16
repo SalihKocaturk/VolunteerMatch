@@ -59,6 +59,8 @@ Her kategori:
 - Reaktif filtreleme ve anlık listeler
 
 ### ✔ Katmanlar
+<pre>
+
 lib/
 │
 ├── core/
@@ -99,6 +101,9 @@ lib/
 │       └── widgets/
 │
 └── main.dart
+
+</pre>
+
 
 
 ### ✔ Custom UI Components
@@ -150,4 +155,5 @@ Proje bağımlılıklarını kurun:
 
 ```bash
 flutter pub get
+
 
