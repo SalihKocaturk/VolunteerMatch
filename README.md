@@ -59,50 +59,44 @@ Her kategori:
 - Reaktif filtreleme ve anlık listeler
 
 ### ✔ Katmanlar
-
 lib/
+│
 ├── core/
 │   ├── widgets/
 │   ├── services/
-│   │     ├── document_service.dart
-│   │     ├── image_service.dart
-│   │     └── preview_service.dart
+│   │   ├── document_service.dart
+│   │   ├── image_service.dart
+│   │   └── ...
 │   ├── theme/
 │   └── constants/
 │
 ├── features/
 │   ├── auth/
-│   │     ├── pages/
-│   │     ├── models/
-│   │     ├── providers/
-│   │     └── widgets/
+│   │   ├── pages/
+│   │   ├── providers/
+│   │   ├── notifiers/
+│   │   └── widgets/
 │   │
 │   ├── corporate/
-│   │     ├── document_upload/
-│   │     ├── event_management/
-│   │     └── verification/
+│   │   ├── onboarding/
+│   │   ├── documents/
+│   │   └── ...
 │   │
 │   ├── events/
-│   │     ├── add_event/
-│   │     ├── event_detail/
-│   │     ├── participant_check/
-│   │     ├── models/
-│   │     ├── providers/
-│   │     └── widgets/
+│   │   ├── pages/
+│   │   ├── providers/
+│   │   └── widgets/
 │   │
 │   ├── users/
-│   │     ├── users_hub/
-│   │     ├── user_list/
-│   │     ├── user_detail/
-│   │     ├── models/
-│   │     ├── providers/
-│   │     └── widgets/
+│   │   ├── pages/
+│   │   ├── providers/
+│   │   ├── models/
+│   │   └── widgets/
 │   │
 │   └── personality/
-│         ├── quiz/
-│         ├── models/
-│         ├── providers/
-│         └── widgets/
+│       ├── pages/
+│       ├── models/
+│       └── widgets/
 │
 └── main.dart
 
@@ -156,3 +150,4 @@ Proje bağımlılıklarını kurun:
 
 ```bash
 flutter pub get
+
