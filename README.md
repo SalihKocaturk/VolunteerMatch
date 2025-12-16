@@ -1,16 +1,158 @@
 # volunteer_match
 
-A new Flutter project.
+# Volunteer Match – Kurumsal Gönüllülük ve Etkinlik Yönetim Platformu
+Flutter ile geliştirilen Volunteer Match, kurumların sosyal sorumluluk etkinlikleri düzenlemesini, gönüllülerin bu etkinliklere başvurmasını ve iki tarafın da doğru eşleşmesini sağlayan modern bir mobil uygulamadır.
 
-## Getting Started
+Bu proje; kurumsal doğrulama, etkinlik yönetimi, kullanıcı profilleri, kişilik analizi, belge yükleme, katılımcı yoklama sistemi ve gönüllü–etkinlik eşleştirme algoritması gibi gelişmiş modüller içerir.
 
-This project is a starting point for a Flutter application.
+---
 
-A few resources to get you started if this is your first Flutter project:
+## 🚀 Özellikler
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### ✔ Kurumsal Modül
+- **Kurum kaydı** (email doğrulama + belge yükleme)
+- Vergi levhası, kuruluş belgesi, yetki belgesi vb. dosyaların PDF/Fotoğraf olarak yüklenmesi
+- Çoklu dosya yükleme, görüntüleme ve silme
+- Kurum onay süreci
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### ✔ Etkinlik Yönetimi
+- Etkinlik oluşturma (fotoğraf, açıklama, tarih, konum, minimum katılımcı vb.)
+- Etkinlik detay sayfası (AddEvent + ParticipantCheck birleşimi)
+- Katılımcı listeleme ve filtreleme
+- Arama fonksiyonu
+- **Toplu check-in / hepsini işaretle**
+- Event katılımcıları için Riverpod tabanlı durum yönetimi
+- QR tabanlı check-in entegrasyonuna hazır altyapı
+
+### ✔ Gönüllü Kullanıcı Modülü
+- Kullanıcı profilleri (fotoğraf, ad, katıldığı etkinlik sayısı)
+- Başarımlar / rozet sistemi (opsiyonel)
+- Kullanıcı detay sayfası
+- Davranışsal kişilik testi (Personality Quiz)
+- Etkinlik öneri algoritmasına temel oluşturan skor hesaplamaları
+
+### ✔ Kullanıcı Kategorileri
+Ana kullanıcı ekranında üç kategori bulunmaktadır:
+- **Tüm kullanıcılar**
+- **Başvuran kullanıcılar**
+- **Daha önce çalışan kullanıcılar**
+
+Her kategori:
+- Mini avatar listesi
+- “Tümünü göster” sayfasına yönlendirme
+- Responsive card tasarımı içerir
+
+### ✔ Eşleştirme Motoru (Matching System)
+- Kullanıcı kişilik analizi
+- Kullanıcı geçmiş etkinlik davranışları
+- Etkinlik türü – kullanıcı karakter uyumu
+- Temel öneri sistemi (future-ready)
+
+---
+
+## 🧩 Mimari Yapı
+
+### ✔ State Management
+- **Riverpod 3.x (Notifier / AsyncNotifier)**
+- Feature-based klasörleme
+- Provider + Notifier + Model ayrımı
+- Reaktif filtreleme ve anlık listeler
+
+### ✔ Katmanlar
+
+lib/
+├── core/
+│   ├── widgets/
+│   ├── services/
+│   │     ├── document_service.dart
+│   │     ├── image_service.dart
+│   │     └── preview_service.dart
+│   ├── theme/
+│   └── constants/
+│
+├── features/
+│   ├── auth/
+│   │     ├── pages/
+│   │     ├── models/
+│   │     ├── providers/
+│   │     └── widgets/
+│   │
+│   ├── corporate/
+│   │     ├── document_upload/
+│   │     ├── event_management/
+│   │     └── verification/
+│   │
+│   ├── events/
+│   │     ├── add_event/
+│   │     ├── event_detail/
+│   │     ├── participant_check/
+│   │     ├── models/
+│   │     ├── providers/
+│   │     └── widgets/
+│   │
+│   ├── users/
+│   │     ├── users_hub/
+│   │     ├── user_list/
+│   │     ├── user_detail/
+│   │     ├── models/
+│   │     ├── providers/
+│   │     └── widgets/
+│   │
+│   └── personality/
+│         ├── quiz/
+│         ├── models/
+│         ├── providers/
+│         └── widgets/
+│
+└── main.dart
+
+
+### ✔ Custom UI Components
+- CustomTextField (search, password, normal)
+- CustomImagePickerField
+- CustomDatePickerField
+- CustomBottomSheetField
+- CustomCard
+- PrimaryButton & OutlinedButton tasarımları
+- EventCard, UserCategoryCard, ParticipantItem vb.
+
+---
+
+## 📸 Ekranlar
+
+### Kurum Tarafı
+- Kurum doğrulama & belge yükleme
+- Etkinlik oluşturma
+- Etkinlik detay + katılımcı yoklama
+
+### Gönüllü Tarafı
+- Kayıt / giriş
+- Kişilik testi
+- Etkinliklere başvuru
+- Kullanıcı profil sayfası
+
+---
+
+## 🛠 Teknik Detaylar
+
+### Belge Yükleme
+- `file_picker` kullanılarak PDF / image destekli
+- Çoklu seçim
+- Kamera veya galeri seçenekleri
+- Dosya ön izleme servisi
+
+### Konum
+- CustomLocationPickerField (Google Maps API için hazır yapı)
+
+### Durum Yönetimi
+- Tüm listeler reaktif ve filtrelenebilir
+- UserListNotifier / ParticipantNotifier / DocumentUploadNotifier
+
+---
+
+## ▶️ Çalıştırma
+
+Proje bağımlılıklarını kurun:
+
+```bash
+flutter pub get
